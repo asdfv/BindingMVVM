@@ -1,16 +1,19 @@
-package by.grodno.vasili.bindingmvvm;
+package by.grodno.vasili.bindingmvvm.main;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import java.util.List;
 
+import by.grodno.vasili.bindingmvvm.FakeRepository;
+import by.grodno.vasili.bindingmvvm.model.Phone;
+
 public class MainViewModel extends ViewModel {
     private MutableLiveData<List<Phone>> liveData;
     private final FakeRepository repository;
 
     public MainViewModel() {
-        this.repository = new FakeRepository();
+        this.repository = FakeRepository.getInstance();
     }
 
     MutableLiveData<List<Phone>> getLiveData() {
@@ -23,7 +26,7 @@ public class MainViewModel extends ViewModel {
 
     private void loadFromRepository() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

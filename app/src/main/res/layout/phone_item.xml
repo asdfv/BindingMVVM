@@ -8,7 +8,12 @@
 
         <variable
             name="phone"
-            type="by.grodno.vasili.bindingmvvm.Phone"
+            type="by.grodno.vasili.bindingmvvm.model.Phone"
+            />
+
+        <variable
+            name="handler"
+            type="by.grodno.vasili.bindingmvvm.main.MainActivity"
             />
     </data>
 
@@ -39,5 +44,13 @@
             tools:text="S7"
             />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:onClick="@{(view) -> handler.details(view, phone.id)}"
+            />
+
     </LinearLayout>
+
 </layout>
