@@ -2,6 +2,7 @@ package by.grodno.vasili.bindingmvvm.main;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.os.AsyncTask;
 
 import java.util.List;
 
@@ -20,16 +21,21 @@ public class MainViewModel extends ViewModel {
         if (liveData == null) {
             liveData = new MutableLiveData<>();
         }
-        loadFromRepository();
+        new LoadPhonesAsyncTask().execute();
         return liveData;
     }
 
-    private void loadFromRepository() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    class LoadPhonesAsyncTask extends AsyncTask<Void, Void, List<Phone>> {
+
+        @Override
+        protected List<Phone> doInBackground(Void... voids) {
+            return repository.getPhones();
         }
-        liveData.setValue(repository.phones);
+
+        @Override
+        protected void onPostExecute(List<Phone> phones) {
+            super.onPostExecute(phones);
+            liveData.setValue(phones);
+        }
     }
 }

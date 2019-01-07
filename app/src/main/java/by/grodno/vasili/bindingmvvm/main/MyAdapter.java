@@ -30,15 +30,18 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.phone_item, viewGroup, false);
-        MainActivity activity = (MainActivity) viewGroup.getContext();
-        return new MyViewHolder(view, activity);
+        PhoneItemBinding binding = DataBindingUtil.bind(view);
+        if (binding != null) {
+            binding.setHandler((ListActivity) viewGroup.getContext());
+            binding.executePendingBindings();
+        }
+        return new MyViewHolder(view, binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Phone phone = phones.get(position);
         holder.binding.setPhone(phone);
-        holder.binding.setHandler(holder.activity);
         holder.binding.executePendingBindings();
     }
 
@@ -49,12 +52,10 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         PhoneItemBinding binding;
-        MainActivity activity;
 
-        MyViewHolder(@NonNull View itemView, MainActivity activity) {
+        MyViewHolder(@NonNull View itemView, PhoneItemBinding binding) {
             super(itemView);
-            this.binding = DataBindingUtil.bind(itemView);
-            this.activity = activity;
+            this.binding = binding;
         }
     }
 }

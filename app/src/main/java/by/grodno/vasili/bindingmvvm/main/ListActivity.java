@@ -8,17 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import by.grodno.vasili.bindingmvvm.R;
-import by.grodno.vasili.bindingmvvm.databinding.ActivityMainBinding;
+import by.grodno.vasili.bindingmvvm.databinding.ActivityListBinding;
 import by.grodno.vasili.bindingmvvm.detail.DetailsActivity;
 
-public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+public class ListActivity extends AppCompatActivity {
+    private ActivityListBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(R.layout.activity_list);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_list);
         MyAdapter adapter = new MyAdapter();
         setupRecyclerView(adapter);
         MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);

@@ -2,6 +2,7 @@ package by.grodno.vasili.bindingmvvm.detail;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.os.AsyncTask;
 
 import by.grodno.vasili.bindingmvvm.FakeRepository;
 import by.grodno.vasili.bindingmvvm.model.Phone;
@@ -23,11 +24,20 @@ public class DetailViewModel extends ViewModel {
     }
 
     private void loadById(String id) {
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        new LoadByIdAsyncTask().execute(id);
+    }
+
+    private class LoadByIdAsyncTask extends AsyncTask<String, Void, Phone> {
+
+        @Override
+        protected Phone doInBackground(String... params) {
+            return repository.getOne(params[0]);
         }
-        liveData.setValue(repository.getOne(id));
+
+        @Override
+        protected void onPostExecute(Phone phone) {
+            super.onPostExecute(phone);
+            liveData.setValue(phone);
+        }
     }
 }

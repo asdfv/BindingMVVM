@@ -8,11 +8,11 @@ import java.util.List;
 import by.grodno.vasili.bindingmvvm.model.Phone;
 
 public class FakeRepository {
-    public List<Phone> phones;
+    private List<Phone> phones;
     private static FakeRepository instance;
 
     private FakeRepository() {
-        phones = new ArrayList<>(20);
+        phones = new ArrayList<>(10);
         phones.add(new Phone("Samsung", 2016, "S7", "Flagman 2016"));
         phones.add(new Phone("Samsung", 2017, "S8", "Flagman 2017"));
         phones.add(new Phone("Samsung", 2019, "S9", "Flagman 2018"));
@@ -26,13 +26,28 @@ public class FakeRepository {
         return instance;
     }
 
+    public List<Phone> getPhones() {
+        waitBlocking(5000);
+        return phones;
+    }
+
+
     @Nullable
     public Phone getOne(String id) {
+        waitBlocking(5000);
         for (Phone phone : phones) {
             if (phone.id.equals(id)) {
                 return phone;
             }
         }
         return null;
+    }
+
+    private void waitBlocking(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

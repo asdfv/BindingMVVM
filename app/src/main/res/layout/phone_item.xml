@@ -13,7 +13,7 @@
 
         <variable
             name="handler"
-            type="by.grodno.vasili.bindingmvvm.main.MainActivity"
+            type="by.grodno.vasili.bindingmvvm.main.ListActivity"
             />
     </data>
 
