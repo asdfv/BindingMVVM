@@ -27,14 +27,14 @@ public class FakeRepository {
     }
 
     public List<Phone> getPhones() {
-        waitBlocking(5000);
+        waitBlocking(1500);
         return phones;
     }
 
 
     @Nullable
     public Phone getOne(String id) {
-        waitBlocking(5000);
+        waitBlocking(1000);
         for (Phone phone : phones) {
             if (phone.id.equals(id)) {
                 return phone;

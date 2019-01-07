@@ -21,8 +21,13 @@ public class ListActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list);
         MyAdapter adapter = new MyAdapter();
         setupRecyclerView(adapter);
-        MainViewModel model = ViewModelProviders.of(this).get(MainViewModel.class);
-        model.getLiveData().observe(this, adapter::setPhones);
+        ListViewModel model = ViewModelProviders.of(this).get(ListViewModel.class);
+        model.getPhonesLiveData().observe(this, adapter::setPhones);
+        model.loadingLiveData.observe(this, this::showProgress);
+    }
+
+    private void showProgress(Boolean loading) {
+        binding.progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
     public void details(View view, String id) {

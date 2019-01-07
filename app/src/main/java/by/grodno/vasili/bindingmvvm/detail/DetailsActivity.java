@@ -19,6 +19,6 @@ public class DetailsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
         DetailViewModel model = ViewModelProviders.of(this).get(DetailViewModel.class);
         String id = getIntent().getStringExtra(PHONE_NUMBER);
-        model.getLiveData(id).observe(this, phone -> binding.setPhone(phone));
+        model.getPhoneLiveData(id).observe(this, phone -> binding.setPhone(phone));
     }
 }

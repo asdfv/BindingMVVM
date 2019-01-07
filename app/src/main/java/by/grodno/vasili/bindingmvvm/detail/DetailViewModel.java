@@ -8,19 +8,19 @@ import by.grodno.vasili.bindingmvvm.FakeRepository;
 import by.grodno.vasili.bindingmvvm.model.Phone;
 
 public class DetailViewModel extends ViewModel {
-    private MutableLiveData<Phone> liveData;
+    private MutableLiveData<Phone> phoneLiveData;
     private final FakeRepository repository;
 
     public DetailViewModel() {
         this.repository = FakeRepository.getInstance();
     }
 
-    MutableLiveData<Phone> getLiveData(String id) {
-        if (liveData == null) {
-            liveData = new MutableLiveData<>();
+    MutableLiveData<Phone> getPhoneLiveData(String id) {
+        if (phoneLiveData == null) {
+            phoneLiveData = new MutableLiveData<>();
         }
         loadById(id);
-        return liveData;
+        return phoneLiveData;
     }
 
     private void loadById(String id) {
@@ -28,6 +28,13 @@ public class DetailViewModel extends ViewModel {
     }
 
     private class LoadByIdAsyncTask extends AsyncTask<String, Void, Phone> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Phone phone = new Phone();
+            phone.loading = true;
+            phoneLiveData.setValue(phone);
+        }
 
         @Override
         protected Phone doInBackground(String... params) {
@@ -36,8 +43,9 @@ public class DetailViewModel extends ViewModel {
 
         @Override
         protected void onPostExecute(Phone phone) {
+            phone.loading = false;
             super.onPostExecute(phone);
-            liveData.setValue(phone);
+            phoneLiveData.setValue(phone);
         }
     }
 }

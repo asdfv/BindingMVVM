@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="phone"
             type="by.grodno.vasili.bindingmvvm.model.Phone"
@@ -31,6 +33,13 @@
             android:text="@{phone.description}"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="Best phone"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{phone.loading ? View.VISIBLE : View.INVISIBLE}"
             />
 
     </LinearLayout>
